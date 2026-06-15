@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Dashboard</title>
+    <link rel="stylesheet"  href="{{url_for('static',filename='style.css')}}">
+    </head>
+    <body>
+        <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/signup">Sign up</a>
+        <a href="/login">Login</a>  
+        <a href="/dashboard">Dashboard</a>
+        </nav>
+        <div class="container">
+            <h1>Welcome
+                {{user}}
+            </h1>
+            <p>You have successfully logged in.
+                <a href="{{url_for('logout')}}">
+                    <button>
+                        Logout
+                    </button>
+                </a>
+            </p>
+
+        </div>
+    </body>
+</html>
