@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create note</title>
+        <link rel="stylesheet",href="{{url_for('static',filename='style.css')}}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Create Note</h1>
+            <form  method="POST">
+                <input
+                type="text",
+                name="title",
+                placeholder="Title",
+                required>
+                <br><br>
+                <textarea
+                name="content",
+                roes="20",
+                required></textarea>
+                <br><br>
+                <button>Save</button>
+            </form>
+            {{message}}
+            <a href="/dashboard">
+                Back
+            </a>
+        </div>
+    </body>
+</html>

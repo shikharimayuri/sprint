@@ -85,7 +85,7 @@ def login():
 
         cursor.execute(
         """
-        select password_hash
+        select id,password_hash
         from users
         where username=%s
         """,
@@ -97,11 +97,12 @@ def login():
         if user:
 
             if check_password_hash(
-                user[0],
+                user[1],
                 password
             ):
                 
                 session["user"]=username
+                session["user_id"]=user[0]
 
                 return redirect(
                     url_for("dashboard")
@@ -134,13 +135,67 @@ def dashboard():
 @app.route("/logout")
 def logout():
 
-    session.pop(
-        "user",
-        None
-    )
+    session.clear()
 
     return redirect(
         url_for("login")
+    )
+
+@app.route("/create_note", methods=["GET","POST"])
+def create_note():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    message=""
+
+    if request.method=="POST":
+
+        title=request.form["title"]
+        content=request.form["content"]
+
+        cursor.execute(
+        """
+        INSERT INTO notes
+        (title,content,user_id)
+        VALUES(%s,%s,%s)
+        """,
+        (
+            title,
+            content,
+            session["user_id"]
+        )
+        )
+
+        db.commit()
+
+        message="Note saved"
+
+    return render_template(
+        "create_note.html",
+        message=message
+    )
+    
+@app.route("/view_notes")
+def view_notes():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    cursor.execute(
+    """
+    SELECT title,content
+    FROM notes
+    WHERE user_id=%s
+    """,
+    (session["user_id"],)
+    )
+
+    notes=cursor.fetchall()
+
+    return render_template(
+        "view_notes.html",
+        notes=notes
     )
 
 if __name__== "__main__":
