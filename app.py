@@ -184,7 +184,7 @@ def view_notes():
 
     cursor.execute(
     """
-    SELECT title,content
+    SELECT id,title
     FROM notes
     WHERE user_id=%s
     """,
@@ -196,6 +196,28 @@ def view_notes():
     return render_template(
         "view_notes.html",
         notes=notes
+    )
+
+@app.route("/note/<int:id>")
+def note(id):
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+    
+    cursor.execute(
+    """
+    select title,content
+    from notes
+    where  id=%s
+    """,
+    (id,)
+    )
+
+    note=cursor.fetchone()
+
+    return render_template(
+        "note.html",
+        note=note
     )
 
 if __name__== "__main__":

@@ -5,14 +5,25 @@
         <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
     </head>
     <body>
-        <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <a href="/signup">Sign up</a>
-        <a href="/login">Login</a>  
-        <a href="/dashboard">Dashboard</a>
-        </nav>
+        <div class="menu-btn" onclick="toggleMenu()">
+            ☰
+        </div>
+        <div id="sidebar" class="sidebar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/signup">Signup</a>
+            <a href="/login">Login</a>
+            <a href="dashboard">Dashboard</a>
+        </div>
+        <script>
+            function toggleMenu(){
+                document
+                .getElementById("sidebar")
+                .classList
+                .toggle("show");
+            }
+        </script>
         <div class="container">
             <h1>About Sprint</h1>
             <p>

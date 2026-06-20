@@ -2,23 +2,36 @@
 <html>
     <head>
         <title>My Notes</title>
-        <link rel="stylesheet", href="{{url_for('static',filename='style.css')}}">
+        <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
     </head>
     <body>
+        <div class="menu-btn" onclick="toggleMenu()">
+            ☰
+        </div>
+        <div id="sidebar" class="sidebar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/signup">Signup</a>
+            <a href="/login">Login</a>
+            <a href="dashboard">Dashboard</a>
+        </div>
+        <script>
+            function toggleMenu(){
+                document
+                .getElementById("sidebar")
+                .classList
+                .toggle("show");
+            }
+        </script>
         <div class="container">
             <h1>My Notes</h1>
             {% for note in notes %}
-            <div>
-                <h3>{{note[0]}}</h3>
-                <p>{{note[1]}}</p>
-                <hr>
-                {% endfor %}
-                <a href="/dashboard">
-                    <button>
-                        Back
-                    </button>
-                </a>
-            </div>
+            <a href="{{url_for('note',id=note[0])}}" class="note-link">
+             {{note[1]}}
+            </a>
+            <br><br>
+            {% endfor%}
         </div>
     </body>
 </html>
